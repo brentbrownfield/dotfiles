@@ -1,0 +1,53 @@
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+	df = diff
+	dc = diff --cached
+	lg = log -p
+	ls = ls-files
+	lol = log --graph --decorate --prettyoneline --abbrev-commit
+	lola = log --graph --decorate --prettyoneline --abbrev-commit --all
+	ign = ls-files -o -i --exclude-standard
+	pl = pull --recurse-submodules
+[user]
+	name = Brent Brownfield
+	email = brent@stackframe.com
+[color]
+	ui = auto
+[core]
+	excludesfile = /Users/brent/.gitignore_global
+	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	editor = mvim -f
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[merge]
+	log = true
+	renamelimit = 31317
+[fetch]
+	recursesubmodules = true
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[push]
+	default = current
+[branch]
+	autosetuprebase = always
+[pull]
+	rebase = true
