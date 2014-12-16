@@ -13,13 +13,13 @@
 	pl = pull --recurse-submodules
 [user]
 	name = Brent Brownfield
-	email = brent@stackframe.com
+	email = brent@pureimaginationdev.com
 [color]
 	ui = auto
 [core]
-	excludesfile = /Users/brent/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	editor = mvim -f
+	editor = vim
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
