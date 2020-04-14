@@ -11,21 +11,12 @@
 	lola = log --graph --decorate --prettyoneline --abbrev-commit --all
 	ign = ls-files -o -i --exclude-standard
 	pl = pull --recurse-submodules
-[user]
-	name = Brent Brownfield
-	email = brent@pureimaginationdev.com
 [color]
 	ui = auto
 [core]
 	excludesfile = ~/.gitignore_global
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	editor = vim
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [merge]
 	log = true
 	renamelimit = 31317
