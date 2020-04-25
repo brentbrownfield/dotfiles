@@ -68,13 +68,16 @@ ZSH_CUSTOM=$HOME/.ohmyzsh_custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git common-aliases git-extras git-flow mvn npm sublime svn z git-profile onesaf colored-man)
+plugins=(git common-aliases git-extras git-flow mvn npm sublime svn z colored-man-pages ssh-agent zsh_reload)
+
+zstyle :omz:plugins:ssh-agent identities id_rsa_personal id_rsa_codehoist
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export JAVA_HOME="/usr/local/java/jdk1.7.0_60"
-export PATH="$HOME/bin:$HOME/.gem/ruby/1.8/bin:/work/tools/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/usr/local/bin:/usr/bin:/bin"
+export GOPATH="$HOME/go"
+export PATH="$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/usr/local/bin:/usr/bin:/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -103,3 +106,10 @@ export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+autoload -U bashcompinit
+bashcompinit
+eval "$(register-python-argcomplete /etc/bash_completion.d/python-argcomplete.sh)"
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
