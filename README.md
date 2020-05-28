@@ -7,6 +7,8 @@ Follow instructions from https://www.atlassian.com/git/tutorials/dotfiles
 
 ```sudo apt install -y git openjdk-11-jdk-head less vim zsh python3-pip python3-argcomplete```
 
+```wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash```
+
 ```pip3 install argcomplete```
 
 ```sudo activate-global-python-argcomplete```
