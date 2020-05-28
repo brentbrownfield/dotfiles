@@ -5,7 +5,7 @@ Follow instructions from https://www.atlassian.com/git/tutorials/dotfiles
 
 ```su - ; apt install sudo ; adduser brent sudo```
 
-```sudo apt install -y git vim zsh python3-pip python3-argcomplete```
+```sudo apt install -y git openjdk-11-jdk-head less vim zsh python3-pip python3-argcomplete```
 
 ```pip3 install argcomplete```
 
