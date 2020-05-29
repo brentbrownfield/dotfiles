@@ -20,3 +20,7 @@ Exit and log back in
 ```sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"```
 
 ```curl -Lks http://bit.ly/cfg_install | /bin/bash```
+
+Exit and log back in
+
+```nvm install --lts```
