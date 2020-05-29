@@ -5,7 +5,7 @@ Follow instructions from https://www.atlassian.com/git/tutorials/dotfiles
 
 ```su - ; apt install sudo ; adduser brent sudo```
 
-```sudo apt install -y tmux curl git openjdk-11-jdk-head less vim zsh python3-pip python3-argcomplete```
+```sudo apt install -y tmux curl git openjdk-11-jdk-headless vim zsh python3-pip python3-argcomplete```
 
 ```wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash```
 
