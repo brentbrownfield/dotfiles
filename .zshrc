@@ -109,7 +109,7 @@ export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
 
 autoload -U bashcompinit
 bashcompinit
-eval "$(register-python-argcomplete /etc/bash_completion.d/python-argcomplete.sh)"
+eval "$(register-python-argcomplete3 /etc/bash_completion.d/python-argcomplete.sh)"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
