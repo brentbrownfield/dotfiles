@@ -11,7 +11,7 @@ Follow instructions from https://www.atlassian.com/git/tutorials/dotfiles
 
 ```pip3 install argcomplete```
 
-```sudo activate-global-python-argcomplete```
+```sudo activate-global-python-argcomplete3```
 
 ```chsh -s /usr/bin/zsh```
 
