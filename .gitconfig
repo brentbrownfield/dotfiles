@@ -17,6 +17,7 @@
 	excludesfile = ~/.gitignore_global
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	editor = vim
+	autocrlf = input
 [merge]
 	log = true
 	renamelimit = 31317
@@ -42,3 +43,5 @@
 	autosetuprebase = always
 [pull]
 	rebase = true
+[include]
+	path = ~/.gitconfig_credentials
