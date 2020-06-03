@@ -43,5 +43,18 @@
 	autosetuprebase = always
 [pull]
 	rebase = true
+# The following includes an optional credentials file. Place your git name,
+# email, and signing key here. Optionally add includeif directives to change
+# the credentials to a different file based on the working directory.
+#
+# Set credentials in the appropriate file:
+# git config --file ~/.gitconfig_credentials user.name "Fred Rogers"
+# git config --file ~/.gitconfig_credentials user.email "fred@neighborhood.com"
+# git config --file ~/.gitconfig_credentials user.signingkey 0A46826A
+#
+# Sample includeif directive:
+#
+# includeIf "gitdir:~/dev/org/"]
+#     path = ~/dev/org/.gitconfig
 [include]
 	path = ~/.gitconfig_credentials
