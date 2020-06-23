@@ -77,7 +77,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export JAVA_HOME="/usr/local/java/jdk1.7.0_60"
 export GOPATH="$HOME/go"
-export PATH="$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/usr/local/bin:/usr/bin:/bin"
+export PATH="$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
