@@ -75,9 +75,9 @@ zstyle :omz:plugins:ssh-agent identities id_rsa_personal id_rsa_codehoist
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-export JAVA_HOME="/usr/local/java/jdk1.7.0_60"
+export JAVA_HOME="/usr/lib/jvm/default-java/"
 export GOPATH="$HOME/go"
-export PATH="$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin"
+export PATH=".:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/usr/local/bin:/usr/bin:/bin/snap/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -113,3 +113,10 @@ eval "$(register-python-argcomplete3 /etc/bash_completion.d/python-argcomplete.s
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+export HISTCONTROL='ignorespace'
+
+if [[ "$(< /proc/sys/kernel/osrelease)" == *microsoft* ]]; then 
+    [ -z "$(ps -ef | grep cron | grep -v grep)" ] && sudo /etc/init.d/cron start &> /dev/null
+    export PATH=$PATH:/mnt/c/Windows/System32
+fi
