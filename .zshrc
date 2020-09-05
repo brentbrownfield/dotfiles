@@ -75,9 +75,9 @@ zstyle :omz:plugins:ssh-agent identities id_rsa_personal id_rsa_codehoist
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-export JAVA_HOME="/usr/lib/jvm/default-java/"
+export JAVA_HOME="/usr/lib/jvm/default-java"
 export GOPATH="$HOME/go"
-export PATH=".:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/usr/local/bin:/usr/bin:/bin/snap/bin"
+export PATH=".:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/snap/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
