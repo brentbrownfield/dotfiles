@@ -38,3 +38,11 @@ server() {
     fi
     open "http://localhost:${PORT}" && python -m SimpleHTTPServer $PORT
 }
+
+dockerImages() {
+    if [ $# -eq 1 ]; then
+        docker images | grep  "$1" | awk '{print $1 ":" $2}';
+    else
+        docker images | awk '{print $1 ":" $2}';
+    fi
+}
