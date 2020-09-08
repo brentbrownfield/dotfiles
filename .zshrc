@@ -107,9 +107,9 @@ export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-autoload -U bashcompinit
-bashcompinit
+autoload -U +X bashcompinit && bashcompinit
 eval "$(register-python-argcomplete3 /etc/bash_completion.d/python-argcomplete.sh)"
+complete -o nospace -C /usr/local/bin/vault vault
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
