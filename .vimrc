@@ -49,7 +49,7 @@ func! Paste_on_off()
 endfunc 
 set pastetoggle=<F11>
 set background=dark
-colo moria
+colo peachpuff
 
 
 " Set nice colors
