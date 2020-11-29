@@ -70,12 +70,54 @@ ZSH_CUSTOM=$HOME/.ohmyzsh_custom
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git common-aliases git-extras git-flow mvn npm sublime svn z colored-man-pages ssh-agent zsh_reload)
 
+if [ -f $HOME/.ssh/id_rsa_personal -a -f $HOME/.ssh/id_rsa_codehoist ]; then
+    zstyle :omz:plugins:ssh-agent identities id_rsa_personal id_rsa_codehoist
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export JAVA_HOME="/usr/lib/jvm/default-java"
 export GOPATH="$HOME/go"
-export PATH=".:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/snap/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+
+PATH=".:$HOME/.local/bin:$HOME/bin:$HOME/.npm-packages/bin"
+
+# If the GOPATH environment variable is set the append the bin
+# directory foud inside thhe go folder
+if [ ! -z $GOPATH -a -d $GOPATH/bin ]; then
+    PATH="$PATH:$GOPATH/bin";
+fi
+
+LOCALGO="/usr/local/go/bin";
+
+# Add Go to the path if it is foud in /usr/local/go/bin
+if [ -d $LOCALGO ]; then
+    PATH="$PATH:$LOCAL_GO";
+fi
+
+# If the JAVA_HOME environment variable is set then append the bin
+# directory found inside the java home directory to the path
+if [ ! -z $JAVA_HOME -a -d $JAVA_HOME/bin ]; then
+    PATH="$PATH:$JAVA_HOME/bin";
+fi
+
+# If the prefix environment variable is set, as is the case in termux
+# then append the bin directory found inside prefix to the path
+if [ ! -z $PREFIX -a -d $PREFIX/bin ]; then
+    PATH="$PATH:$PREFIX/bin";
+fi
+
+# If the snap directory exists add its bin directory to the path
+if [ -d /snap/bin ]; then
+    PATH="$PATH:/snap/bin";
+fi
+
+# Add the sbin directories found in most linux distributions.
+# This is useful for running sudo commands.
+PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin";
+
+export PATH;
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -106,16 +148,34 @@ export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 autoload -U +X bashcompinit && bashcompinit
-eval "$(register-python-argcomplete3 /etc/bash_completion.d/python-argcomplete.sh)"
+
+REGISTER_PYTHON_ARGCOMPLETE=`which register-python-argcomplete3`;
+
+if [ $? -eq 1 ]; then
+    REGISTER_PYTHON_ARGCOMPLETE=`which register-python-argcomplete`;
+fi
+
+if [ $? -eq 0 ]; then
+    eval "$($REGISTER_PYTHON_ARGCOMPLETE /etc/bash_completion.d/python-argcomplete.sh)"
+fi
+
+complete -o nospace -C /usr/local/bin/vault vault
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 export HISTCONTROL='ignorespace'
 
-if [[ "$(< /proc/sys/kernel/osrelease)" == *microsoft* ]]; then 
-    [ -z "$(ps -ef | grep cron | grep -v grep)" ] && sudo /etc/init.d/cron start &> /dev/null
-    export PATH=$PATH:/mnt/c/Windows/System32
+# Test for WSL/WSL2. Normally 'uname -o' could be used by the version
+# used in WSL does not support the operating system flag of uname :(
+# Need to research the proper usage of [[]], to understand how/when/if
+# the multiple if statements can be reduced to a single test
+OSRELEASE="/proc/sys/kernel/osrelease"
+if [ -r $OSRELEASE ]; then
+    if [[ -r $OSRELASE -a "$(< $OSRELEASE)" == *microsoft* ]]; then 
+        [ -z "$(ps -ef | grep cron | grep -v grep)" ] && sudo /etc/init.d/cron start &> /dev/null
+        export PATH=$PATH:/mnt/c/Windows/System32
+    fi
 fi
 
 CMD_TERRAFORM="$(which terraform)"
