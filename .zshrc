@@ -79,7 +79,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export JAVA_HOME="/usr/lib/jvm/default-java"
 export GOPATH="$HOME/go"
-
 PATH=".:$HOME/.local/bin:$HOME/bin:$HOME/.npm-packages/bin"
 
 # If the GOPATH environment variable is set the append the bin
@@ -116,7 +115,7 @@ fi
 # This is useful for running sudo commands.
 PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin";
 
-export PATH;
+export PATH=$PATH:/bin:/usr/bin:/usr/local/bin;
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
