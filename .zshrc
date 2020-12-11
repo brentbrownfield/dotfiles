@@ -79,6 +79,8 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export JAVA_HOME="/usr/lib/jvm/default-java"
 export GOPATH="$HOME/go"
+BASEPATH=$PATH
+
 PATH=".:$HOME/.local/bin:$HOME/bin:$HOME/.npm-packages/bin"
 
 # If the GOPATH environment variable is set the append the bin
@@ -113,9 +115,8 @@ fi
 
 # Add the sbin directories found in most linux distributions.
 # This is useful for running sudo commands.
-PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin";
-
-export PATH=$PATH:/bin:/usr/bin:/usr/local/bin;
+PATH="$PATH:/usr/local/sbin:$BASEPATH";
+export PATH
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -169,20 +170,10 @@ export HISTCONTROL='ignorespace'
 # used in WSL does not support the operating system flag of uname :(
 # Need to research the proper usage of [[]], to understand how/when/if
 # the multiple if statements can be reduced to a single test
-OSRELEASE="/proc/sys/kernel/osrelease"
-if [ -r $OSRELEASE ]; then
-    if [[ -r $OSRELASE -a "$(< $OSRELEASE)" == *microsoft* ]]; then 
-        [ -z "$(ps -ef | grep cron | grep -v grep)" ] && sudo /etc/init.d/cron start &> /dev/null
-        export PATH=$PATH:/mnt/c/Windows/System32
-    fi
-fi
-
-CMD_TERRAFORM="$(which terraform)"
-if [ $? -eq 0 ]; then
-    complete -o nospace -C $CMD_TERRAFORM terraform
-fi
-
-CMD_VAULT="$(which vault)"
-if [ $? -eq 0 ]; then
-    complete -o nospace -C $CMD_VAULT vault
-fi
+#OSRELEASE="/proc/sys/kernel/osrelease"
+#if [ -r $OSRELEASE ]; then
+#    if [ -r $OSRELASE -a ["$(< $OSRELEASE)" -eq *microsoft* ]]; then 
+#        [ -z "$(ps -ef | grep cron | grep -v grep)" ] && sudo /etc/init.d/cron start &> /dev/null
+#        export PATH=$PATH:/mnt/c/Windows/System32
+#    fi
+#fi
