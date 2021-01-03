@@ -55,3 +55,11 @@ body() {
     printf '%s\n' "$header"
     "$@"
 }
+
+verifyGPGKey() {
+    if [ $# -eq 1 ]; then
+        cat "$1" | gpg --with-colons --import-options show-only --import
+    else
+        echo "Specify gpg key file";
+    fi
+}
