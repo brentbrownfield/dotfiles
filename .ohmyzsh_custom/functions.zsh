@@ -61,5 +61,135 @@ verifyGPGKey() {
         cat "$1" | gpg --with-colons --import-options show-only --import
     else
         echo "Specify gpg key file";
+
+timezsh() {
+    shell=${1-$SHELL}
+    for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+
+bwlogin() {
+    bw login --check > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "Already logged in";
+    else
+        zparseopts -D -E -K -A parsedOpts -- c: u:
+
+        code=$parsedOpts[-c];
+        user=$parsedOpts[-u];
+
+        if [ ! -z $user ]; then
+            export BW_USERNAME=$user;
+        fi
+
+        # Read in username if the env variable BW_USERNAME
+        # is not set
+        if [ -z $BW_USERNAME ]; then
+            read "BW_USERNAME?Username: ";
+            echo "\n";
+        fi
+
+        ### Input  pasword and yubikey as hidden charactors ###
+        read -s "password?Master Password: "
+        echo "\n"
+
+        if [ -z $code ]; then
+            read -s "yubikey?Yubikey: "
+            echo "\n"
+            echo "Logging in as $BW_USERNAME with yubikey";
+            BW_SESSION=`bw login --raw --method 3 --code $yubikey $BW_USERNAME $password`
+        else
+            echo "Logging in as $BW_USERNAME with authenticator code $code";
+            BW_SESSION=`bw login --raw --method 0 --code $code $BW_USERNAME $password`;
+        fi
+        export BW_SESSION;
+        unset password
+        unset yubikey
+        unset code
+        unset user
+
+        bw login --check > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo "Login Success";
+        else
+            echo "Login Failed";
+        fi
+    fi
+}
+
+bwlock() {
+    bw lock;
+    unset BW_SESSION;
+}
+
+bwunlock() {
+    read -s "password?Master Password: "
+    echo "\n";
+    BW_SESSION=`bw unlock --raw $password`;
+    export BW_SESSION;
+}
+
+bwlogout() {
+    bw logout;
+    unset BW_SESSION;
+    rm -f ~/.BW_SESSION
+}
+
+bwAccessToken() {
+    if [ $# -eq 2 ]; then
+        local search=$1;
+        local username=$2;
+        local field='Access Token';
+        TOKEN=`bwField $search $username $field`
+        echo $TOKEN
+    else
+        echo 'Search term and Username is required';
+    fi
+}
+
+bwFields() {
+    if [ $# -eq 1 ]; then
+        local search=$1
+        bw list items --search $search | jq --raw-output ". | map(select(.fields != null)) | .[] | {username: .login.username, fields: .fields}"
+    elif [ $# -eq 2 ]; then
+        local search=$1
+        local username=$2;
+        bw list items --search $search | jq --raw-output ". | map(select(.fields != null)) | map(select(.login.username == \"$username\")) | .[0] | .fields"
+    e
+    else
+        echo 'Search term is required';
+        echo 'Username is optional';
+    fi
+
+}
+
+bwField() {
+    if [ $# -eq 3 ]; then
+        local search=$1
+        local username=$2;
+        local field=$3;
+        TOKEN=`bw list items --search $search | jq --raw-output ". | map(select(.fields != null)) | map(select(.login.username == \"$username\")) | .[0] | .fields | map(select(.name == \"$field\")) | .[0] | .value"`
+        echo $TOKEN
+    else
+        echo 'Search term, Username and field name are required';
+    fi
+}
+
+bwPassword() {
+    if [ $# -eq 2 ]; then
+        local searchTerm=$1;
+        local user=$2;
+        bw list items --search $searchTerm |  jq --raw-output ". | map(select(.login.username == \"$user\")) |
+.[0] | .login.password"
+    else
+        echo 'Search term and username must be provided';
+    fi
+}
+
+bwUserPasswordFromURI() {
+    if [ $# -eq 1 ]; then
+        local uri=$1;
+        bw list items --search $uri | jq --raw-output ". | map( select ( any(.login.uris[].uri; contains(\"$uri\") )) ) | .[] | {username: .login.username , password: .login.password}"
+    else
+        echo 'URI is required';
     fi
 }
