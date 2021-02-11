@@ -7,8 +7,8 @@
 	dc = diff --cached
 	lg = log -p
 	ls = ls-files
-	lol = log --graph --decorate --prettyoneline --abbrev-commit
-	lola = log --graph --decorate --prettyoneline --abbrev-commit --all
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	ign = ls-files -o -i --exclude-standard
 	pl = pull --recurse-submodules
 [color]
