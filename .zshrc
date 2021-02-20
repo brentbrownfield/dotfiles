@@ -70,8 +70,6 @@ ZSH_CUSTOM=$HOME/.ohmyzsh_custom
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git common-aliases git-extras git-flow mvn npm sublime svn z colored-man-pages ssh-agent zsh_reload)
 
-zstyle :omz:plugins:ssh-agent identities id_rsa_personal id_rsa_codehoist
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
