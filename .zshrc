@@ -107,7 +107,6 @@ export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
 
 autoload -U +X bashcompinit && bashcompinit
 eval "$(register-python-argcomplete3 /etc/bash_completion.d/python-argcomplete.sh)"
-complete -o nospace -C /usr/local/bin/vault vault
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -122,4 +121,9 @@ fi
 CMD_TERRAFORM="$(which terraform)"
 if [ $? -eq 0 ]; then
     complete -o nospace -C $CMD_TERRAFORM terraform
+fi
+
+CMD_VAULT="$(which vault)"
+if [ $? -eq 0 ]; then
+    complete -o nospace -C $CMD_VAULT vault
 fi
