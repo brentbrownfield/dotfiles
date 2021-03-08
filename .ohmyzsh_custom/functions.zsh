@@ -61,6 +61,8 @@ verifyGPGKey() {
         cat "$1" | gpg --with-colons --import-options show-only --import
     else
         echo "Specify gpg key file";
+    fi
+}
 
 timezsh() {
     shell=${1-$SHELL}
@@ -154,7 +156,6 @@ bwFields() {
         local search=$1
         local username=$2;
         bw list items --search $search | jq --raw-output ". | map(select(.fields != null)) | map(select(.login.username == \"$username\")) | .[0] | .fields"
-    e
     else
         echo 'Search term is required';
         echo 'Username is optional';
