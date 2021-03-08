@@ -118,3 +118,8 @@ if [[ "$(< /proc/sys/kernel/osrelease)" == *microsoft* ]]; then
     [ -z "$(ps -ef | grep cron | grep -v grep)" ] && sudo /etc/init.d/cron start &> /dev/null
     export PATH=$PATH:/mnt/c/Windows/System32
 fi
+
+CMD_TERRAFORM="$(which terraform)"
+if [ $? -eq 0 ]; then
+    complete -o nospace -C $CMD_TERRAFORM terraform
+fi
