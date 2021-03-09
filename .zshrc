@@ -70,14 +70,12 @@ ZSH_CUSTOM=$HOME/.ohmyzsh_custom
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git common-aliases git-extras git-flow mvn npm sublime svn z colored-man-pages ssh-agent zsh_reload)
 
-zstyle :omz:plugins:ssh-agent identities id_rsa_personal id_rsa_codehoist
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-export JAVA_HOME="/usr/lib/jvm/default-java"
-export GOPATH="$HOME/go"
-export PATH=".:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/snap/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+#export JAVA_HOME="/usr/lib/jvm/default-java"
+#export GOPATH="$HOME/go"
+#export PATH=".:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.npm-packages/bin:$JAVA_HOME/bin:/snap/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -96,7 +94,7 @@ export PATH=".:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:$HOME/.n
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -108,15 +106,15 @@ export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 autoload -U +X bashcompinit && bashcompinit
-eval "$(register-python-argcomplete3 /etc/bash_completion.d/python-argcomplete.sh)"
-complete -o nospace -C /usr/local/bin/vault vault
+#eval "$(register-python-argcomplete3 /etc/bash_completion.d/python-argcomplete.sh)"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+#export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 export HISTCONTROL='ignorespace'
 
-if [[ "$(< /proc/sys/kernel/osrelease)" == *microsoft* ]]; then 
-    [ -z "$(ps -ef | grep cron | grep -v grep)" ] && sudo /etc/init.d/cron start &> /dev/null
-    export PATH=$PATH:/mnt/c/Windows/System32
-fi
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/bbrownfield/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bbrownfield/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/bbrownfield/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bbrownfield/google-cloud-sdk/completion.zsh.inc'; fi
