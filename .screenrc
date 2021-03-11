@@ -7,3 +7,4 @@ defscrollback 100000
 
 screen -t 'Web Tools'
 screen -t 'Development'
+termcapinfo xterm* ti@:te@
