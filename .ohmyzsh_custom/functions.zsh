@@ -91,20 +91,21 @@ bwlogin() {
         fi
 
         ### Input  pasword and yubikey as hidden charactors ###
-        read -s "password?Master Password: "
-        echo "\n"
+        if [ -z $BW_PASSWORD ]; then
+            read -s "BW_PASSWORD?Master Password: "
+            echo "\n"
+        fi
 
         if [ -z $code ]; then
             read -s "yubikey?Yubikey: "
             echo "\n"
             echo "Logging in as $BW_USERNAME with yubikey";
-            BW_SESSION=`bw login --raw --method 3 --code $yubikey $BW_USERNAME $password`
+            BW_SESSION=`bw login --raw --method 3 --code $yubikey $BW_USERNAME $BW_PASSWORD`
         else
             echo "Logging in as $BW_USERNAME with authenticator code $code";
-            BW_SESSION=`bw login --raw --method 0 --code $code $BW_USERNAME $password`;
+            BW_SESSION=`bw login --raw --method 0 --code $code $BW_USERNAME $BW_PASSWORD`;
         fi
         export BW_SESSION;
-        unset password
         unset yubikey
         unset code
         unset user
