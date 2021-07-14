@@ -64,6 +64,14 @@ verifyGPGKey() {
     fi
 }
 
+verifySHA256() {
+    if [ $# -eq 1 ]; then
+        sha256sum -c $1 2>&1 | grep OK
+    else
+        echo "Specify SHA256Sum file";
+    fi
+}
+
 timezsh() {
     shell=${1-$SHELL}
     for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
