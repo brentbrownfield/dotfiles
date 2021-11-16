@@ -25,8 +25,6 @@ function bwPassword --description "Lookup password in bitwarden based on usernam
         return 1
     end
 
-    echo Searching for term: $searchTerm
-
     # If -u or --username is given, get the username from one or the other
     # otherwise return with non-zero exit code as this is required.
     if set -q _flag_username
@@ -38,8 +36,6 @@ function bwPassword --description "Lookup password in bitwarden based on usernam
         help
         return 1
     end
-
-    echo "Searching for user: $user"
 
     bw list items --search $searchTerm |  jq --raw-output ". | map(select(.login.username     == \"$user\")) | .[0] | .login.password"
 end
