@@ -9,7 +9,7 @@ function bwPassword --description "Lookup password in bitwarden based on usernam
 
     # If -h or --help is given, we print a little help text and return
     if set -q _flag_help
-        help
+        printHelp
         return 0
     end
 
@@ -21,7 +21,7 @@ function bwPassword --description "Lookup password in bitwarden based on usernam
         set searchTerm $_flag_s
     else
         echo "Search term is required"
-        help
+        printHelp
         return 1
     end
 
@@ -33,14 +33,14 @@ function bwPassword --description "Lookup password in bitwarden based on usernam
         set user $_flag_u
     else
         echo "Username is required"
-        help
+        printHelp
         return 1
     end
 
     bw list items --search $searchTerm |  jq --raw-output ". | map(select(.login.username     == \"$user\")) | .[0] | .login.password"
 end
 
-function help
+function printHelp
     echo "Usage:"
     echo "bwPassword (-s/--search SEARCH_TERM) (-u/--username USER_NAME)"
 end
