@@ -24,7 +24,7 @@ trunk() {
 
 db2a() {
     if [ $# -gt 0 ]; then
-        java -jar /work/brent/docbook2asciidoc/saxon9he.jar -s $1.docbook -o $1.asc /work/brent/docbook2asciidoc/d2a.xsl
+        java -jar ./docbook2asciidoc/saxon9he.jar -s $1.docbook -o $1.asc ./docbook2asciidoc/d2a.xsl
     else
         echo "Docbook file must be provided"
     fi
