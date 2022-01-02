@@ -1,4 +1,4 @@
-function bwPassword --description "Lookup password in bitwarden based on username and search term"
+function bwFields --description "Lookup password in bitwarden based on username and search term"
 
     set -l options (fish_opt -s h -l help)
     set options $options (fish_opt --short s --long search --required-val)
@@ -31,16 +31,18 @@ function bwPassword --description "Lookup password in bitwarden based on usernam
         set user $_flag_username
     else if set -q _flag_u
         set user $_flag_u
-    else
-        echo "Username is required"
-        printHelp
-        return 1
     end
 
-    bw list items --search $searchTerm |  jq --raw-output ". | map(select(.login.username     == \"$user\")) | .[0] | .login.password"
+    # Username is not set
+    if set -q $user
+        bw list items --search $searchTerm | jq --raw-output ". | map(select(.fields != null)) | .[] | {username: .login.username, fields: .fields}"
+    # Username is set
+    else
+        bw list items --search $searchTerm | jq --raw-output ". | map(select(.fields != null)) | map(select(.login.username == \"$user\")) | .[0] | .fields"
+    end
 end
 
 function printHelp
     echo "Usage:"
-    echo "bwPassword (-s/--search SEARCH_TERM) (-u/--username USER_NAME)"
+    echo "bwFields (-s/--search SEARCH_TERM) [-u/--username USER_NAME]"
 end
