@@ -11,6 +11,7 @@
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	ign = ls-files -o -i --exclude-standard
 	pl = pull --recurse-submodules
+    stale = "!git branch -vv | grep \": gone]\" | grep -v \"*\" | awk '{ print $1; }'"
 [color]
 	ui = auto
 [core]
